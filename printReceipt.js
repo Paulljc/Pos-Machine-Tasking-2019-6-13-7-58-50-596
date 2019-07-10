@@ -31,7 +31,7 @@ function countBarcode(barcode) {
     return receiptContent;
   }
   
-  function findItemByBracode(id) {
+  function findItemByBracode(barcode) {
     const goodsDB = [
       {"id": "0001", "name": "Coca Cola", "price": 3},
       {"id": "0002", "name": "Diet Coke", "price": 4},
@@ -47,7 +47,7 @@ function countBarcode(barcode) {
   
     let item;
     goodsDB.forEach((value, index) => {
-      if (id == value['id']) {
+      if (barcode == value['id']) {
         item = {'id': value['id'], 'name': value['name'], 'price': value['price']};
       }
     })
