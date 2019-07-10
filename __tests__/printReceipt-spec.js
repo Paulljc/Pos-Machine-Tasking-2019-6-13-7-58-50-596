@@ -26,3 +26,12 @@ it('should be print receipt', () => {
     //then
     expect(result).toEqual({'id':'0003', 'name':'Pepsi-Cola', 'price':5});
   });
+
+  it('should create receipt by items', () => {
+    //given
+    const items = {'0001':1, '0003':2, '0005':1};
+    //when
+    const result = printReceipt.createReceipt(items);
+    //then
+    expect(result).toMatch("Receipts\n------------------------------------------------------------\nCoca Cola\t3\t1\nPepsi-Cola\t5\t2\nDr Pepper\t7\t1\n------------------------------------------------------------\nPrice: 20");
+  });
