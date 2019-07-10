@@ -1,6 +1,6 @@
-function trans2Object(barCode) {
-    var item = {};
-    barCode.forEach((value, index) => {
+function countBarcode(barcode) {
+    let item = {};
+    barcode.forEach((value, index) => {
       if (item[value] == undefined) {
         item[value] = 1;
       } else {
@@ -11,30 +11,28 @@ function trans2Object(barCode) {
   }
   
   function createReceipt(items) {
-    var totalMoney = 0;
-    var receiptContent = '';
+    let totalMoney = 0;
+    let receiptContent = '';
     receiptContent += ('Receipts\n' +
         '------------------------------------------------------------\n');
   
     for(id in items) {
-      var item = findItemById(id);
+      const item = findItemByBracode(id);
       if (item !== undefined) {
-        receiptContent = receiptContent + item['name'] + '\t' + item['price'] + '\t' + items[id] + '\n';
-        totalMoney = totalMoney + item['price']*items[id];
+        receiptContent += item['name'] + '\t' + item['price'] + '\t' + items[id] + '\n';
+        totalMoney += item['price'] * items[id];
       } else {
-        receiptContent = '';
         receiptContent = '[ERROR]: not found item[id=' + id + '].Please input correctly.'
         return receiptContent;
       }
     }
-  
-    receiptContent += ('------------------------------------------------------------\nPrice: ' + totalMoney);
-  
+
+    receiptContent += '------------------------------------------------------------\nPrice: ' + totalMoney;
     return receiptContent;
   }
   
-  function findItemById(id) {
-    var goodsDB = [
+  function findItemByBracode(id) {
+    const goodsDB = [
       {"id": "0001", "name": "Coca Cola", "price": 3},
       {"id": "0002", "name": "Diet Coke", "price": 4},
       {"id": "0003", "name": "Pepsi-Cola", "price": 5},
@@ -47,7 +45,7 @@ function trans2Object(barCode) {
       {"id": "0010", "name": "Fanta", "price": 12}
     ];
   
-    var item;
+    let item;
     goodsDB.forEach((value, index) => {
       if (id == value['id']) {
         item = {'id': value['id'], 'name': value['name'], 'price': value['price']};
@@ -57,12 +55,9 @@ function trans2Object(barCode) {
   }
   
   function printReceipt(barcodes) {
-    var items = trans2Object(barcodes);
-    var Receipts = createReceipt(items);
-    console.log(Receipts);
-    return Receipts;
+    const items = countBarcode(barcodes);
+    const receipts = createReceipt(items);
+    return receipts;
   }
   
-  //printReceipt(['0001','0003', '0005', '0003'])
-  
-  module.exports = printReceipt;
+  module.exports = {printReceipt, countBarcode, createReceipt, findItemByBracode};
