@@ -23,7 +23,7 @@ function trans2Object(barCode) {
         totalMoney = totalMoney + item['price']*items[id];
       } else {
         receiptContent = '';
-        receiptContent = '[ERROR]: not found item[id=' + id + '].Please enter correctly.'
+        receiptContent = '[ERROR]: not found item[id=' + id + '].Please input correctly.'
         return receiptContent;
       }
     }
